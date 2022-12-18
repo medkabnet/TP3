@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List produit</title>
+    <style>
+        #ajouter{
+            background-color: rgba(210, 105, 30, 0.445);
+            width: 50vw;
+            border-radius: 25px;
+            padding: 1%;
+        }
+        #ajouter .head{
+            text-align: center;
+        }
+        #smallLine{
+            font-size: 0.7em;
+            font-weight: lighter;
+        }
+        
+        #ajouter #submit{
+            display: block;
+            margin: 0 auto;
+            width: 30%;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: rgb(214, 79, 45);
+            background-color: rgb(204, 200, 174);
+            border: 2px solid ;
+            border-radius: 30px;
+        }
+        #ajouter #submit:active{
+            background-color: rgb(214, 79, 45);
+            color: rgb(204, 200, 174);
+        }
+        .required,#message.error{
+            color: red;
+        }
+        #message.valid{
+            color: green;
+        }
+        .classList{
+            font-size: 1.3em;
+            font-weight: bold;
+            background-color:rgb(194, 194, 194);
+        }
+        .row{
+            width: 100%;
+            display:flex;
+            margin-bottom: 15px;
+        }
+        .row .col:last-child{
+            width: 75%;
+        }
+        .row .col:last-child input, .row .col:last-child textarea{
+            width: 90%;
+        }
+        .row .col:last-child input[type="radio"], .row .col:last-child input[type="checkbox"]{
+            width: initial;
+        }
+        .row .col:first-child{
+            width: 25%;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        input[type="text"]:focus, textarea:focus{
+            color: blue;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h3>Créer un programme qui permet d'ajouter modifier et supprimer dans une liste de produit</h3>
+    <ul>
+        <li>Référence s'incriment automatiqument mais il peut etre modifier</li>
+        <li>Les champs avec <span class="required">*</span> sont obligatoire</li>
+        <li>La valeur du stock se calcule automatiquement et ne pas pas étre modifier</li>
+        <li>Si nous choisisson la catégorie "Nouriture" une champs "Date d'expiration " s'affiche </li>
+        <li>Le mot de pass est obligatoir pour chaque ajout</li>
+        <li>Le mot de pass ne s'ajoute pas à la list</li>
+        <li>Dans la balise P
+            <ul>
+                <li>si l'ajout se pass bien on affiche un message  en vert on ajouton la class <span class="classList">valid</span></li>
+                <li>si il ya un probléme on affiche un message  en rouge on ajouton la class <span class="classList">error</span></li>
+            </ul>
+        </li>
+        <li>Tout les produits s'afficheront dans le tableau en bas </li>
+        <li></li>
+    </ul>
+
+    <!-- formulaire debut -->
+
+    <form id="ajouter">
+        <h2 class="head" >Nombre de produit dans la list : <span id="nbrP">0</span></h2>
+        <h3 class="head">Formulaire d'ajout</h3>
+        <div class="row">
+            <div class="col">Référence<span class="required">*</span></div>
+            <div class="col"> 
+                <input type="text" name="" id="idProduit" value ="1" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">Nom du produit<span class="required">*</span></div>
+            <div class="col"> 
+                <input type="text" name="" id="nomProduit" required>
+            </div>
+        </div>
+       
+        <div class="row">
+            <div class="col">Description produit</div>
+            <div class="col"> 
+                <textarea name="" id="desProduit" cols="30" rows="5"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">Prix<span class="required">*</span></div>
+            <div class="col"> 
+                <input type="text" name="" class="calcul" id="prixProduit" required>
+            </div>
+        </div>
+       
+        <div class="row">
+            <div class="col">Stock<span class="required">*</span></div>
+            <div class="col"> 
+                <input type="text" name="" class="calcul" value="10" id="stockProduit" min="1" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">Valeur du stock</div>
+            <div class="col"> 
+                <input type="text" name="" id="valeurProduit" readonly>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">Fournisseur<span class="required">*</span></div>
+            <div class="col"> 
+                <input type="text" name="" id="fournisseurProduit" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">Categori<span class="required">*</span></div>
+            <div class="col"> 
+                <div id="categori">
+                    <input type="radio" name="categori" class="categori"  value="Vétement" id="vet"><label for="vet">Vétement</label>
+                    <input type="radio" name="categori" class="categori"  value="Nouriture" id="nour" ><label for="nour">Nouriture</label>
+                    <input type="radio" name="categori" class="categori"  value="Décoration" id="dec"><label for="vet">Décoration</label>
+                </div>
+            </div>
+        </div> 
+        <div class="row">
+            <div class="col">Où vendre? <span class="required">*</span></div>
+            <div class="col"> 
+                <div id="vendre">
+                    <input type="checkbox" name="vendre" class="vendre"  value="En ligne" id="enlig"><label for="enlig">En ligne</label>
+                    <input type="checkbox" name="vendre" class="vendre"  value="Boutique" id="bouti"><label for="bouti">Boutique</label>
+                </div>
+            </div>
+        </div> 
+
+        <div class="row hide" id="dateRow">
+            <div class="col">Date d'expiration</div>
+            <div class="col">
+                <input type="date" name="dateExp" id="dateExp" min="2018-01-01" max="2025-12-31" >
+            </div>
+        </div> 
+
+        <div class="row">
+            <div class="col">Mot de pass<span class="required">*</span></div>
+            <div class="col">
+                <input type="password" name="pwd" id="pwd" >
+            </div>
+        </div> 
+        <input id="submit" type="button"  value="Envoyer">
+    </form>
+    <p id="message"></p>
+    <table id="tableau" border="1">
+        <thead>
+            <tr>
+                <td>Reference</td>
+                <td>Nom du produit</td>
+                <td>Description</td>
+                <td>Prix</td>
+                <td>Stock</td>
+                <td>Valeur du stock</td>
+                <td>Fournisseur</td>
+                <td>Catégorie</td>
+                <td>Date d'expiration</td>
+                <td>Vente en ligne</td>
+                <td>Vente en boutique</td>
+                <td>Supprimer</td>
+                <td>Modifier</td>
+            </tr>
+        </thead>
+    </table>
+    <script src="./script.js"></script>
+    <script>
+        // code js
+    </script>
+</body>
+</html>
