@@ -29,6 +29,7 @@ for ( let radio of categori){
             else{
                 dateRow.classList.add("hide")
             }
+            cat = e.target.value
         })
     }
     catch(err){
@@ -65,14 +66,56 @@ submit.addEventListener('click', ()=>{
         stockProduit : stockProduit.value,
         valeurProduit : valeurProduit.value,
         fournisseurProduit : fournisseurProduit.value,
+        categori : cat,
         dateExp : dateExp.value,
         enlig : enlig.checked,
         bouti : bouti.checked,
-        categori : cat
     }
     listProduit.push(produit);
     messageValidation("Produit bien ajouter");
+    
+    var tableau = document.getElementById("tableau");
+    // var nouveauLigne  = document.createElement("tr");
+    // tableau.appendChild(nouveauLigne);
+
+    // for (const key in produit) {
+    //     var td1 = document.createElement("td");
+    //     td1.innerHTML = produit[key];
+    //     nouveauLigne.appendChild(td1);
+    // }
+
+    var tr = tableau.insertRow();
+    // insertRow() == document.createElement("tr") 
+        // + tableau.appendChild(element);
+    for (const key in produit) {
+        var td1 = tr.insertCell();
+    // insertCell() == document.createElement("td") 
+        // + tr.appendChild(element);
+        td1.innerHTML = produit[key];
+    }
+    // listProduit
+    var tdSupp = tr.insertCell();
+    var btnSup = document.createElement("button");
+    btnSup.innerHTML ="Supprimer";
+    btnSup.addEventListener("click",e=>{
+        for (let i = 0; i < listProduit.length; i++) {
+            const prod = listProduit[i];
+            if( prod.idProduit == produit.idProduit){
+                listProduit.splice(i,1);
+                // insertRow()
+                document.getElementById('tableau').deleteRow(i+1)
+            }
+        }
+        console.log(listProduit);
+    })
+    tdSupp.appendChild(btnSup);
+
+    var tdModi = tr.insertCell();
+    var btnModi = document.createElement("button");
+    btnModi.innerHTML ="Modifier";
+    tdModi.appendChild(btnModi);
     idProduit.value = ++count;
+    
     // idProduit.value = listProduit.length + 1;
     // console.log(listProduit);
 })
