@@ -12,6 +12,7 @@ var enlig = document.getElementById('enlig');
 var bouti = document.getElementById('bouti');
 var message = document.getElementById("message");
 var categori = document.getElementsByClassName('categori');
+var edit = document.getElementById("edit");
 var cat = "";
 var listProduit = [];
 var count = 1;
@@ -84,7 +85,35 @@ submit.addEventListener('click', ()=>{
     //     nouveauLigne.appendChild(td1);
     // }
 
-    var tr = tableau.insertRow();
+    ajouterLigne(produit);
+    idProduit.value = ++count;
+    
+    // idProduit.value = listProduit.length + 1;
+    // console.log(listProduit);
+})
+
+edit.addEventListener("click",e=>{
+    for (let i = 0; i < listProduit.length; i++) {
+        const prod = listProduit[i];
+        if(prod.idProduit == idProduit.value){
+            prod.nomProduit = nomProduit.value;
+            prod.desProduit = desProduit.value;
+            prod.prixProduit = prixProduit.value;
+            prod.stockProduit = stockProduit.value
+            prod.valeurProduit = valeurProduit.value
+            prod.fournisseurProduit = fournisseurProduit.value
+            prod.dateExp = dateExp.value
+            prod.enlig = enlig.checked
+            prod.bouti = bouti.checked
+            prod.categori = cat
+            document.getElementById('tableau').deleteRow(i+1)
+            ajouterLigne(prod,i+1)
+        }
+    }
+})
+
+function ajouterLigne(produit,index=-1){
+    var tr = tableau.insertRow(index);
     // insertRow() == document.createElement("tr") 
         // + tableau.appendChild(element);
     for (const key in produit) {
@@ -113,12 +142,41 @@ submit.addEventListener('click', ()=>{
     var tdModi = tr.insertCell();
     var btnModi = document.createElement("button");
     btnModi.innerHTML ="Modifier";
+    btnModi.addEventListener("click",e=>{
+        for (let i = 0; i < listProduit.length; i++) {
+            const prod = listProduit[i];
+            if( prod.idProduit == produit.idProduit){
+                // code
+                idProduit.value = prod.idProduit
+                nomProduit.value = prod.nomProduit
+                desProduit.value = prod.desProduit
+                prixProduit.value = prod.prixProduit
+                stockProduit.value = prod.stockProduit
+                valeurProduit.value = prod.valeurProduit
+                fournisseurProduit.value = prod.fournisseurProduit
+                dateExp.value = prod.dateExp
+                enlig.checked = prod.enlig
+                bouti.checked = prod.bouti
+                for (const radio of categori) {
+                    try {
+                        if(radio.value == prod.categori){
+                            radio.checked = true
+                        }
+                        if(prod.categori == "Nouriture"){
+                            dateRow.classList.remove("hide");
+                        }
+                        else{
+                            dateRow.classList.add("hide");
+                        }
+                    } catch (error) {
+                        
+                    }
+                }
+            }
+        }
+    })
     tdModi.appendChild(btnModi);
-    idProduit.value = ++count;
-    
-    // idProduit.value = listProduit.length + 1;
-    // console.log(listProduit);
-})
+}
 
 function multiplication(v1,v2){
     // var resulta = v1 * v2;

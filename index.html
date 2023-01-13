@@ -20,7 +20,7 @@
             font-weight: lighter;
         }
         
-        #ajouter #submit{
+        #ajouter #submit, #edit{
             display: block;
             margin: 0 auto;
             width: 30%;
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col">Référence<span class="required">*</span></div>
             <div class="col"> 
-                <input type="text" name="" id="idProduit" value ="1" required>
+                <input type="text" name="" id="idProduit" value ="1" required readonly>
             </div>
         </div>
         <div class="row">
@@ -175,6 +175,8 @@
             </div>
         </div> 
         <input id="submit" type="button"  value="Envoyer">
+        <br>
+        <input id="edit" type="button"  value="Modifier">
     </form>
     <p id="message"></p>
     <table id="tableau" border="1">
